@@ -33,17 +33,19 @@
     <!-- <h4>{{products[p]}}</h4>
     <p>{{ price1[0] }}만원</p>
   </div> -->
-  <div>
-    <img src="./assets/room0.jpg" class="room-img">
-    <h4 @click="모달창열렸니 = true">{{products[0]}}</h4>
-    <p>50만원</p>
+  <div v-for="(one,oneroom) in 원룸들" :key="oneroom">
+    <!-- HTML 태그안의 속성 데이터 바인딩은 :어쩌구
+        HTML 태그안의 내용 데이터 바인딩은 {{어쩌구}} -->
+    <img :src="원룸들[oneroom].image" class="room-img">
+    <h4 @click="모달창열렸니 = true">{{원룸들[oneroom].title}}</h4>
+    <p>{{원룸들[oneroom].price}}원</p>
       <!-- 버튼누를때마다 1씩 증가 -->
     <button @click="신고수[0]++">허위매물신고</button> <span>신고수 : {{신고수[0]}}</span>
   </div>
-    <div>
+    <!-- <div>
       <img src="./assets/room1.jpg" class="room-img">
-    <h4>{{products[1]}}</h4>
-    <p>50만원</p>
+    <h4>{{원룸들[1].title}}</h4>
+    <p>{{원룸들[1].price}}</p>
     <button @click="신고수[1]++">허위매물신고</button> <span>신고수 : {{신고수[1]}}</span>
   </div>
     <div>
@@ -51,7 +53,7 @@
     <h4>{{products[2]}}</h4>
     <p>50만원</p>
      <button @click="신고수[2]++">허위매물신고</button> <span>신고수 : {{신고수[2]}}</span>
-  </div>
+  </div> -->
 
 
 </template>
@@ -68,16 +70,30 @@
 // }
 
 //  data(): 데이터  저장 통. Object형식으로 왼쪽에 이름 오른쪽에 값. {자료이름 : 자료내용}
+
+// import / export 문법 쓰는법
+// 1. export default 변수명 , 2.import 변수명 from 그파일 경로
+// import apple from './assets/oneroom.js';
+//  import {변수1,변수2} from 경로  //중괄호로했으면 중괄호로가져와야함.
+// apple;
+
+import data from './assets/oneroom.js';
+
+
 export default {
   name: 'App',
   data(){
     return{
+      // import한 data를 가져옴.
+      원룸들 : data,
       모달창열렸니 : false,
       신고수 : [0,0,0],
       price1 : ['60','70','80'],
       스타일 : 'color : blue',
       products: ['역삼동원룸', '천호동원룸' , '마포구원룸'],
       메뉴들 : ['Home','Shop','About'],
+
+
       
       
     }
