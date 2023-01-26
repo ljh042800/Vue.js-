@@ -1,0 +1,147 @@
+<template>
+<!-- 동적인 UI 만드는법 
+0. 디자인 해두고.
+1. UI의 현재 상태를 데이터로 저장해둠.
+2. 데이터에 따라 UI가 어떻게 보일지 작성.-->
+
+<!-- v-if = "조건식" 
+조건식이 참일때만 HTML 보여준다.-->
+
+<div class="black-bg" v-if="모달창열렸니 == true">       <!--모달창열렸니가 true일때만 보임. -->
+  <div class="white-bg">
+    <h4>상세페이지임</h4>
+    <p>상세페이지 내용임</p>
+    <button type="button" @click="모달창열렸니 = false">닫기</button>
+  </div>
+
+</div>
+
+<!-- HTML -->
+  
+  <div class="menu">
+    <!-- 반복문: 태그 v-for="??in??"  작명 in 몇회<-이자리에 데이터(자료안의 데이터 갯수만큼 반복) 집어넣어도됨.
+    작명한 변수는 데이터안의 자료가 됨.     :key="작명"도 필수 반복문을 구분하기위해서. 
+    왼쪽변수는 array내의 데이터 오른쪽 변수는 1씩증가하는 정수.-->
+    <!-- <a v-for="(a,i) in 메뉴들" :key="i">{{i}}</a> -->
+    <a v-for="i in 메뉴들" :key="i">{{i}}</a>
+    
+  </div>
+
+
+  <!-- <div v-for="(a,p) in products" :key="p"> -->
+    <!--  HTML 속성도 데이터 바인딩 가능.  ex) :속성 = "데이터이름" -->
+    <!-- <h4>{{products[p]}}</h4>
+    <p>{{ price1[0] }}만원</p>
+  </div> -->
+  <div>
+    <img src="./assets/room0.jpg" class="room-img">
+    <h4 @click="모달창열렸니 = true">{{products[0]}}</h4>
+    <p>50만원</p>
+      <!-- 버튼누를때마다 1씩 증가 -->
+    <button @click="신고수[0]++">허위매물신고</button> <span>신고수 : {{신고수[0]}}</span>
+  </div>
+    <div>
+      <img src="./assets/room1.jpg" class="room-img">
+    <h4>{{products[1]}}</h4>
+    <p>50만원</p>
+    <button @click="신고수[1]++">허위매물신고</button> <span>신고수 : {{신고수[1]}}</span>
+  </div>
+    <div>
+      <img src="./assets/room2.jpg" class="room-img">
+    <h4>{{products[2]}}</h4>
+    <p>50만원</p>
+     <button @click="신고수[2]++">허위매물신고</button> <span>신고수 : {{신고수[2]}}</span>
+  </div>
+
+
+</template>
+
+
+<script>
+
+// document.getElementById().innerHTML = ??; 원래 데이터 집어넣기.
+//  function 어쩌구() {
+//   console.log('adwadwadawd');
+//    console.log('adwadwadawd');
+   
+//    어쩌구()만 쓰면 안에있는 데이터가 다 나옴.
+// }
+
+//  data(): 데이터  저장 통. Object형식으로 왼쪽에 이름 오른쪽에 값. {자료이름 : 자료내용}
+export default {
+  name: 'App',
+  data(){
+    return{
+      모달창열렸니 : false,
+      신고수 : [0,0,0],
+      price1 : ['60','70','80'],
+      스타일 : 'color : blue',
+      products: ['역삼동원룸', '천호동원룸' , '마포구원룸'],
+      메뉴들 : ['Home','Shop','About'],
+      
+      
+    }
+  },
+  // methods : {
+  //   increase(){
+  //     // 함수 안에서 데이터를 쓸땐 this.데이터명
+  //     this.신고수[0] += 1;
+  //   },
+  //   increase1(){
+  //     this.신고수[1] +=1;
+  //   },
+  //   increase2(){
+  //     this.신고수[2] +=1;
+  //   }
+    
+
+  // },
+
+  components: {
+  }
+}
+</script>
+<style>
+body{
+  margin : 0
+}
+div{
+  box-sizing: border-box;
+}
+.black-bg {
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0,5);
+  position: fixed; padding: 20px;
+}
+.white-bg{
+  width: 100%;
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+
+
+
+.room-img {
+  width: 100%;
+  margin-top: 40px;
+}
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
+
+.menu{
+  background: darkslateblue;
+  padding: 15px;
+  border-radius: 5px;
+}
+.menu a {
+  color: white;
+  padding: 10px;
+}
+</style>
