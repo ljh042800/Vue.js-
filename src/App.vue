@@ -7,10 +7,21 @@
 <!-- v-if = "조건식" 
 조건식이 참일때만 HTML 보여준다.-->
 
+<!-- <div v-if="1==2"> 참일때이거
+    안녕하세요   
+</div>
+<div v-else> 참이아닐때 이거
+    안녕하세요2
+</div> -->
+
 <div class="black-bg" v-if="모달창열렸니 == true">       <!--모달창열렸니가 true일때만 보임. -->
   <div class="white-bg">
-    <h4>상세페이지임</h4>
-    <p>상세페이지 내용임</p>
+    <img :src="원룸들[누른거].image" style="width:100%">
+    <h4>{{원룸들[누른거].title}}</h4>
+    <p>{{원룸들[누른거].content}}</p>
+    <p>{{원룸들[누른거].price}}원</p>
+    <Modal/>
+    <Discount/>
     <button type="button" @click="모달창열렸니 = false">닫기</button>
   </div>
 
@@ -28,6 +39,14 @@
   </div>
 
 
+  <!-- 축약해둔 컴포넌트 쓰는 법
+  vue파일 import 해오고, 등록하고, 쓰면됨. -->
+ 
+ <!-- <Discount/> -->
+
+
+
+
   <!-- <div v-for="(a,p) in products" :key="p"> -->
     <!--  HTML 속성도 데이터 바인딩 가능.  ex) :속성 = "데이터이름" -->
     <!-- <h4>{{products[p]}}</h4>
@@ -37,7 +56,7 @@
     <!-- HTML 태그안의 속성 데이터 바인딩은 :어쩌구
         HTML 태그안의 내용 데이터 바인딩은 {{어쩌구}} -->
     <img :src="원룸들[oneroom].image" class="room-img">
-    <h4 @click="모달창열렸니 = true">{{원룸들[oneroom].title}}</h4>
+    <h4 @click="모달창열렸니 = true; 누른거 = oneroom">{{원룸들[oneroom].title}}</h4>
     <p>{{원룸들[oneroom].price}}원</p>
       <!-- 버튼누를때마다 1씩 증가 -->
     <button @click="신고수[0]++">허위매물신고</button> <span>신고수 : {{신고수[0]}}</span>
@@ -78,6 +97,8 @@
 // apple;
 
 import data from './assets/oneroom.js';
+import Discount from './Discount.vue';
+import Modal from './Modal.vue';
 
 
 export default {
@@ -85,6 +106,7 @@ export default {
   data(){
     return{
       // import한 data를 가져옴.
+      누른거 : 0,
       원룸들 : data,
       모달창열렸니 : false,
       신고수 : [0,0,0],
@@ -114,6 +136,10 @@ export default {
   // },
 
   components: {
+    // Discount라는 이름으로 위에서 import한 Discount라는 이름을 가져다 쓰겠다.
+    // 왼쪽에 언제나 자유작명 ,왼쪽 오른쪽 이름이 같으면 축약해됨.
+    Discount : Discount,
+    Modal : Modal,
   }
 }
 </script>
@@ -123,6 +149,12 @@ body{
 }
 div{
   box-sizing: border-box;
+}
+.discount{
+  background: #eee;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 5px;
 }
 .black-bg {
   width: 100%; height: 100%;
